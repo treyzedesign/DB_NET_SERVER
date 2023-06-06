@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="download()">click</button>
+    <script src="js-file-downloader.min.js"></script>
+    <script>
+        function download(){
+
+           let down = new jsFileDownloader({ url: 'https://cdn.apedesign.net/github/logo.png',
+            process: function process (event) {
+            if (!event.lengthComputable) return; // guard
+            var downloadingPercentage = Math.floor(event.loaded / event.total * 100);
+            // what to do ...
+            console.log(downloadingPercentage);
+            }
+        })
+
+        }
+
+
+        // function process (event) {
+        // if (!event.lengthComputable) return; // guard
+        // var downloadingPercentage = Math.floor(event.loaded / event.total * 100);
+        //  console.log(downloadingPercentage);
+        // };
+
+        // let data = new JsFileDownloader({ 
+        // url: 'https://cdn.apedesign.net/github/logo.png',
+        // process: process
+        // })
+    </script>
+</body>
+</html>
