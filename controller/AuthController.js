@@ -95,7 +95,7 @@ const loginUser = async(req, res)=>{
             const comparePassword = await bcryptjs.compare(password, user.password)
             if(comparePassword){
                 res.cookie('refresh_token', refreshToken(user), {
-                    httpOnly: false,
+                    httpOnly: true,
                     maxAge: 1000 * 60 * 60 * 24 * 365,
                     secure: true,
                     sameSite: "None"
