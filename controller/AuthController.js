@@ -94,17 +94,18 @@ const loginUser = async(req, res)=>{
             console.log(user);
             const comparePassword = await bcryptjs.compare(password, user.password)
             if(comparePassword){
-                res.cookie('refresh_token', refreshToken(user), {
-                    httpOnly: true,
-                    maxAge: 1000 * 60 * 60 * 24 * 365,
-                    secure: true,
-                    sameSite: "None"
-                })
+                // res.cookie('refresh_token', refreshToken(user), {
+                //     httpOnly: true,
+                //     maxAge: 1000 * 60 * 60 * 24 * 365,
+                //     secure: true,
+                //     sameSite: "None"
+                // })
 
                 res.status(200).json({
                     message: 'logged in successfully',
                     data: user,
-                    token: generateToken(user)
+                    token: generateToken(user),
+                    refresh_token: refreshToken(user)
                 })
             }else{
                 res.status(404).json({
