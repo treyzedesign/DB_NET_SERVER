@@ -64,7 +64,7 @@ const generateToken = (obj)=>{
     const token = jwt.sign({
         id: obj.id, 
         name: obj.name
-    }, process.env.TOKEN_SECRET, {expiresIn: "30s"});
+    }, process.env.TOKEN_SECRET, {expiresIn: "2m"});
 
     return token;
 }
@@ -144,7 +144,7 @@ const refresh = async(req, res)=>{
                 })
             }else{
                 const user = decode
-                const newAccessToken = jwt.sign({id: user.id, name: user.name}, process.env.TOKEN_SECRET, {expiresIn: "30s"})
+                const newAccessToken = jwt.sign({id: user.id, name: user.name}, process.env.TOKEN_SECRET, {expiresIn: "2m"})
                 res.status(200).json({
                     message: newAccessToken
                 })
