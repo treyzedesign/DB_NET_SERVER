@@ -2,12 +2,12 @@ const express = require('express')
 const server = express()
 const mongoose = require('mongoose')
 const cors = require('cors')
-// const bodyParser = require('body-parser')
-const PORT = 4444
+const corsOptions = require('./config/CorsOption')
 require('dotenv').config()
-server.use(cors({
-    credentials: true
-}))
+
+// const bodyParser = require('body-parser')
+const PORT = process.env.PORT || 4444
+server.use(cors(corsOptions));
 server.use(express.json())
 // server.use(bodyParser())
 
@@ -19,7 +19,7 @@ server.use('/api', require('./routes/Post'))
 
 
 const startServer = async()=>{
-    await mongoose.connect("mongodb://127.0.0.1:27017").then(()=>{
+    await mongoose.connect(process.env.MONGO_URL).then(()=>{
         console.log("db connected");
     }).catch((err)=>{
         console.log(err);

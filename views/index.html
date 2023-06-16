@@ -11,15 +11,18 @@
     <script src="js-file-downloader.min.js"></script>
     <script>
         function download(){
-
-           let down = new jsFileDownloader({ url: 'https://cdn.apedesign.net/github/logo.png',
+            const arr =  ['https://cdn.apedesign.net/github/logo.png', 'https://cdn.apedesign.net/github/logo.png']
+            arr.forEach((item)=>{
+            let down = new jsFileDownloader({ url: item,
             process: function process (event) {
             if (!event.lengthComputable) return; // guard
             var downloadingPercentage = Math.floor(event.loaded / event.total * 100);
             // what to do ...
             console.log(downloadingPercentage);
             }
-        })
+            })
+            })
+           
 
         }
 

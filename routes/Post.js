@@ -1,5 +1,9 @@
 const { Router } = require("express")
-const { postFile , getAllFiles, getUserFile} = require('../controller/PostController')
+const { postFile , 
+      getAllFiles, 
+      getUserFile, 
+      deleteFile,
+      getAFile} = require('../controller/PostController')
 const {AuthUser} = require("../middleware/Auth")
 const PostRouter = Router()
 const multer = require('multer')
@@ -27,8 +31,10 @@ const upload = multer({
     //   }
 });
 
-PostRouter.post('/postFile', AuthUser, upload.array('files'), postFile)
+PostRouter.post('/postFile', AuthUser, upload.any(), postFile)
 PostRouter.get('/getAllFiles', AuthUser, getAllFiles)
-PostRouter.get('/getUserFile', AuthUser, getUserFile)
+PostRouter.get('/getUserFile/:id', getUserFile)
+PostRouter.get('/getAFile/:id', getAFile)
+PostRouter.delete('/deleteFile/:id', AuthUser, deleteFile)
 
 module.exports = PostRouter
