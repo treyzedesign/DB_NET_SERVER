@@ -12,7 +12,7 @@ server.use(express.json())
 // server.use(bodyParser())
 
 const path = require('path')
-server.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+server.use('/tmp/uploads', express.static(path.join(__dirname, 'uploads')))
 
 server.use('/api', require('./routes/Auth'))
 server.use('/api', require('./routes/Post'))
