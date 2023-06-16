@@ -64,13 +64,14 @@ const getAllFiles = async(req, res)=>{
 //access public 
 const getUserFile = async(req, res)=>{
     const userId = req.params.id
+    const date = req.query.date == 'desc' ? -1 : 1
     try {
         if(userId == null || userId == undefined){
             res.status(400).json({
                 message: 'bad request'   
             })
         }else{
-            const query = await Post.find({userId: userId})
+            const query = await Post.find({userId: userId}).sort({date: date})
             if(query){
                 res.status(200).json({
                     message: query  
