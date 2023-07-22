@@ -27,14 +27,14 @@ const createUser = async (req, res)=>{
                 message: error.details[0].message.replace(/\"/g, '' ).replace(": /^[a-zA-Z]+$/", '')
             });
         }else{
-            const findUser = await User.findOne({email:email})
+             findUser = await User.findOne({email:email})
             if(findUser){
                 return res.status(409).json({
                     message: "account already exists"
                 });
             }else{
                 const hashedPassword = await bcryptjs.hash(password, 10)
-                const newUser ={
+                conconstst newUser ={
                     id: uuid.v4(),
                     name : name,
                     email:email,

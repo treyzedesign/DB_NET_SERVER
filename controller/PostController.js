@@ -1,10 +1,6 @@
 const Post = require('../model/Post')
 const uuid = require('uuid')
 
-
-//@desc post a file
-//@route POST api/postFile
-//access private - token must be provided
 const postFile = async(req,res)=>{
     console.log(req.files);
     try {
@@ -38,9 +34,6 @@ const postFile = async(req,res)=>{
   
 }
 
-//@desc get all files
-//@route GET api/getAllFiles
-//access private - token must be provided
 const getAllFiles = async(req, res)=>{
     try {
         const query = await Post.find()
@@ -59,19 +52,15 @@ const getAllFiles = async(req, res)=>{
     }
 }
 
-//@desc get User files
-//@route GET api/getUserFile/:id
-//access public 
 const getUserFile = async(req, res)=>{
     const userId = req.params.id
-    const date = req.query.date == 'desc' ? -1 : 1
     try {
         if(userId == null || userId == undefined){
             res.status(400).json({
                 message: 'bad request'   
             })
         }else{
-            const query = await Post.find({userId: userId}).sort({date: date})
+            const query = await Post.find({userId: userId})
             if(query){
                 res.status(200).json({
                     message: query  
@@ -89,56 +78,12 @@ const getUserFile = async(req, res)=>{
     }
 }
 
-//@desc get one file
-//@route GET api/getAFile/:id
-//access public 
-const getAFile = async(req, res)=>{
-    const file_Id = req.params.id
-    try {
-        if(file_Id == null || file_Id == undefined){
-            res.status(400).json({
-                message: 'bad request'   
-            })
-        }else{
-            const query = await Post.findOne({file_Id: file_Id})
-            res.status(200).json({
-                message: query
-            })
-        }
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
-}
+const deleteFile = async(req, res)=>{
 
-//@desc delete on file
-//@route GET api/deleteFile
-//access private - token must be provided
-const deleteFile = async (req, res)=>{
-    const fileId = req.params.id
-
-    try {
-        if(fileId == null || fileId == undefined){
-            res.status(400).json({
-                message: 'bad request'   
-            })
-        }else{
-            const query = await Post.findOne({file_Id: fileId}).deleteOne()
-            res.status(200).json({
-                message: 'deleted file successfully'
-            })
-        }
-    } catch (error) {
-        res.status(500).json({
-            message: error.message
-        })
-    }
 }
 module.exports=  {
     postFile,
     getAllFiles,
     getUserFile,
-    getAFile,
     deleteFile
 }
